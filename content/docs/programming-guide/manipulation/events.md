@@ -53,6 +53,13 @@ The first approach is usually recommended because, in most cases, a disabled com
 Not unsubscribing from events can lead to null reference exceptions. This happens because the event handling method will still be called on an object that has been deleted.
 {{% /callout %}}
 
+### Pre and Post Event Naming
+
+UltimateXR follows the [.Net Event Naming](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/names-of-type-members#names-of-events) conventions. Especifically these 3 rules:
+1. DO name events with a verb or a verb phrase. Examples include `Clicked`, `Painting`, `DroppedDown`, and so on.
+2. DO give events names with a concept of before and after, **using the present and past tenses**.
+3. DO NOT use "Before" or "After" prefixes or postfixes to indicate pre- and post-events. Use present and past tenses as just described.
+
 ## `UxrGrabManager` Events
 These events are raised whenever any element in the scene activates them. They all receive a `UxrManipulationEventArgs` object that contains specific manipulation information about the event. Depending on which event is being raised, some fields may be left unused. For example, a *Grabbed* will never use the `UxrManipulationEventArgs.ReleaseVelocity` property.
 
@@ -70,34 +77,49 @@ The `UxrManipulationEventArgs` class has the following properties:
 - **ReleaseAngularVelocity**: The angular velocity on release.
 - **PlacementOptions**: The placement flags in place events.
 
-Check the [UxrGrabManager Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabManager#events) to see how these [properties](/api/T_UltimateXR_Manipulation_UxrManipulationEventArgs#properties) are used.
+Check the following sections of the API reference for more information:
+- [UxrGrabManager Events](/api/T_UltimateXR_Manipulation_UxrGrabManager#events)
+- [UxrManipulationEventArgs Properties](/api/T_UltimateXR_Manipulation_UxrManipulationEventArgs#properties) are used.
 
 ### GrabTrying
-Triggered when the user presses the grab action button on the controller, indicating an attempt to grab. This doesn’t necessarily mean an object is within reach; it just shows that the user has pressed the button.
+Raised when the user presses the grab action button on the controller, indicating an attempt to grab. This doesn’t necessarily mean an object is within reach; it just shows that the user has pressed the button.
 
 ### ObjectGrabbing/ObjectGrabbed
-Triggered right before an object is being grabbed (`UxrGrabManager.ObjectGrabbing`) and when the grab is complete (`UxrGrabManager.ObjectGrabbed`).
+Raised right before an object is being grabbed (`UxrGrabManager.ObjectGrabbing`) and when the grab is complete (`UxrGrabManager.ObjectGrabbed`).
 
 ### ObjectReleasing/ObjectReleased
-Triggered when an object starts to be released (`UxrGrabManager.ObjectReleasing`) and when the release is complete (`UxrGrabManager.ObjectReleased`).
+Raised when an object starts to be released (`UxrGrabManager.ObjectReleasing`) and when the release is complete (`UxrGrabManager.ObjectReleased`).
 
 ### ObjectPlacing/ObjectPlaced
-Triggered when an object is being placed in a specific location (`UxrGrabManager.ObjectPlacing`) and once the object has been placed (`UxrGrabManager.ObjectPlaced`).
+Raised when an object is being placed in a specific location (`UxrGrabManager.ObjectPlacing`) and once the object has been placed (`UxrGrabManager.ObjectPlaced`).
 
 ### ObjectRemoving/ObjectRemoved
-Triggered when an object is being removed from its location (`UxrGrabManager.ObjectRemoving`) and once the object is removed (`UxrGrabManager.ObjectRemoved`).
+Raised when an object is being removed from its location (`UxrGrabManager.ObjectRemoving`) and once the object is removed (`UxrGrabManager.ObjectRemoved`).
 
 ### AnchorRangeEntering/AnchorRangeLeft
-Triggered when an object enters (`UxrGrabManager.AnchorRangeEntering`) or leaves (`UxrGrabManager.AnchorRangeLeft`) the proximity of an anchor.
+Raised when an object enters (`UxrGrabManager.AnchorRangeEntering`) or leaves (`UxrGrabManager.AnchorRangeLeft`) the proximity of an anchor.
 
 ### PlacedObjectRangeEntered/PlacedObjectRangeLeft
-Triggered when a placed object enters (`UxrGrabManager.PlacedObjectRangeEntered`) or leaves (`UxrGrabManager.PlacedObjectRangeLeft`) a defined range.
+Raised when a placed object enters (`UxrGrabManager.PlacedObjectRangeEntered`) or leaves (`UxrGrabManager.PlacedObjectRangeLeft`) a defined range.
 
 ## `UxrGrabbableObject` Events
 These events are raised for a specific [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject). They also receive a `UxrManipulationEventArgs` object, which will contain specific manipulation information depending on the event.
 Check the [UxrGrabbableObject Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject#events) to see how these properties are used.
 
 ### ConstraintsApplying/ConstraintsApplied/ConstraintsFinished
+
+These events are raised during the manipulation module's update stage, allowing you to apply custom constraints by modifying the position and rotation of a grabbable object.
+
+The [UxrGrabbableObject](/docs/manipulation/uxrgrabbableobject) component has built-in constraint support for specifying linear and rotational limits. However, constraint events are useful for:
+- Custom constraints that go beyond built-in limits.
+- Other effects, like linear or rotational vibrations (e.g., firearm recoil in UltimateXR).
+
+{{% callout caution %}}
+Using events instead of the component’s `Update()` method ensures that `Transform` changes occur at the correct stage in the manipulation workflow.
+{{% /callout %}}
+
+- `UxrGrabbableObject.ConstraintsApplying`: Event called right before applying the built-in position/rotation constraints to the object.
+- `UxrGrabbableObject.ConstraintsApplied`:  Event called after applying the built-in position/rotation constraints to the object.
 
 ### Grabbing/Grabbed
 
