@@ -60,7 +60,7 @@ UltimateXR follows the [.Net Event Naming](https://learn.microsoft.com/en-us/dot
 2. DO give events names with a concept of before and after, **using the present and past tenses**.
 3. DO NOT use "Before" or "After" prefixes or postfixes to indicate pre- and post-events. Use present and past tenses as just described.
 
-## `UxrGrabManager` Events
+## [UxrGrabManager](/docs/programming-guide/manipulation/uxrgrabmanager) Events
 These events are raised whenever any element in the scene activates them. They all receive a `UxrManipulationEventArgs` object that contains specific manipulation information about the event. Depending on which event is being raised, some fields may be left unused. For example, a *Grabbed* will never use the `UxrManipulationEventArgs.ReleaseVelocity` property.
 
 The `UxrManipulationEventArgs` class has the following properties:
@@ -102,7 +102,7 @@ Raised when a grabbed object enters (`UxrGrabManager.AnchorRangeEntering`) or le
 ### PlacedObjectRangeEntered/PlacedObjectRangeLeft
 Raised when an empty grabber enters (`UxrGrabManager.PlacedObjectRangeEntered`) or leaves (`UxrGrabManager.PlacedObjectRangeLeft`) the range of a grabbable object that is placed on an anchor, meaning it can be grabbed.
 
-## `UxrGrabbableObject` Events
+## [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject) Events
 These events are raised for a specific [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject). They also receive a `UxrManipulationEventArgs` object, which will contain specific manipulation information depending on the event.
 Check the [UxrGrabbableObject Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject#events) to see how the events work and how the properties are used.
 
@@ -133,7 +133,7 @@ Raised when an object starts to be released (`UxrGrabbableObject.Releasing`) and
 ### Placing/Placed
 Raised right before an object is being placed on an anchor (`UxrGrabbableObject.Placing`) and after (`UxrGrabbableObject.Placed`).
 
-## `UxrGrabbableObjectAnchor` Events
+## [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor) Events
 These events are raised for a specific [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor). Like with `UxrGrabbableObject`, they also receive a `UxrManipulationEventArgs` object with parameters.
 Check the [UxrGrabbableObjectAnchor Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObjectAnchor#events) to see how the events work and how the properties are used.
 
