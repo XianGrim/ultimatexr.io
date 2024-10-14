@@ -85,26 +85,26 @@ Check the following sections of the API reference for more information:
 Raised when the user presses the grab action button on the controller, indicating an attempt to grab. This doesn’t necessarily mean an object is within reach; it just shows that the user has pressed the button.
 
 ### ObjectGrabbing/ObjectGrabbed
-Raised right before an object is being grabbed (`UxrGrabManager.ObjectGrabbing`) and when the grab is complete (`UxrGrabManager.ObjectGrabbed`).
+Raised right before an object is being grabbed (`UxrGrabManager.ObjectGrabbing`) and after (`UxrGrabManager.ObjectGrabbed`).
 
 ### ObjectReleasing/ObjectReleased
-Raised when an object starts to be released (`UxrGrabManager.ObjectReleasing`) and when the release is complete (`UxrGrabManager.ObjectReleased`).
+Raised when an object starts to be released (`UxrGrabManager.ObjectReleasing`) and after (`UxrGrabManager.ObjectReleased`).
 
 ### ObjectPlacing/ObjectPlaced
-Raised when an object is being placed in a specific location (`UxrGrabManager.ObjectPlacing`) and once the object has been placed (`UxrGrabManager.ObjectPlaced`).
+Raised right before an object is being placed on an anchor (`UxrGrabManager.ObjectPlacing`) and after (`UxrGrabManager.ObjectPlaced`).
 
 ### ObjectRemoving/ObjectRemoved
-Raised when an object is being removed from its location (`UxrGrabManager.ObjectRemoving`) and once the object is removed (`UxrGrabManager.ObjectRemoved`).
+Raised right before an object is being removed from its anchor (`UxrGrabManager.ObjectRemoving`) and after (`UxrGrabManager.ObjectRemoved`).
 
 ### AnchorRangeEntering/AnchorRangeLeft
-Raised when an object enters (`UxrGrabManager.AnchorRangeEntering`) or leaves (`UxrGrabManager.AnchorRangeLeft`) the proximity of an anchor.
+Raised when a grabbed object enters (`UxrGrabManager.AnchorRangeEntering`) or leaves (`UxrGrabManager.AnchorRangeLeft`) the proximity of an empty anchor, meaning it can be placed.
 
 ### PlacedObjectRangeEntered/PlacedObjectRangeLeft
-Raised when a placed object enters (`UxrGrabManager.PlacedObjectRangeEntered`) or leaves (`UxrGrabManager.PlacedObjectRangeLeft`) a defined range.
+Raised when an empty grabber enters (`UxrGrabManager.PlacedObjectRangeEntered`) or leaves (`UxrGrabManager.PlacedObjectRangeLeft`) the range of a grabbable object that is placed on an anchor, meaning it can be grabbed.
 
 ## `UxrGrabbableObject` Events
 These events are raised for a specific [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject). They also receive a `UxrManipulationEventArgs` object, which will contain specific manipulation information depending on the event.
-Check the [UxrGrabbableObject Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject#events) to see how these properties are used.
+Check the [UxrGrabbableObject Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject#events) to see how the events work and how the properties are used.
 
 ### ConstraintsApplying/ConstraintsApplied/ConstraintsFinished
 
@@ -114,18 +114,25 @@ The [UxrGrabbableObject](/docs/manipulation/uxrgrabbableobject) component has bu
 - Custom constraints that go beyond built-in limits.
 - Other effects, like linear or rotational vibrations (e.g., firearm recoil in UltimateXR).
 
-{{% callout caution %}}
+{{% callout info %}}
 Using events instead of the component’s `Update()` method ensures that `Transform` changes occur at the correct stage in the manipulation workflow.
 {{% /callout %}}
 
-- `UxrGrabbableObject.ConstraintsApplying`: Event called right before applying the built-in position/rotation constraints to the object.
-- `UxrGrabbableObject.ConstraintsApplied`:  Event called after applying the built-in position/rotation constraints to the object.
+- **`UxrGrabbableObject.ConstraintsApplying`**: This event is raised just before applying the built-in position and rotation constraints to the object.
+- **`UxrGrabbableObject.ConstraintsApplied`**: This event is raised immediately after the built-in constraints are applied to the object.
+- **`UxrGrabbableObject.ConstraintsFinished`**: This event occurs after `UxrGrabbableObject.ConstraintsApplied`, ensuring that all handlers subscribed to `ConstraintsApplied`, if any, have been executed.
 
 ### Grabbing/Grabbed
 
+Raised right before an object is being grabbed (`UxrGrabbableObject.Grabbing`) and after (`UxrGrabbableObject.Grabbed`).
+
 ### Releasing/Released
 
+Raised when an object starts to be released (`UxrGrabbableObject.Releasing`) and after (`UxrGrabbableObject.Released`).
+
 ### Placing/Placed
+
+Raised right before an object is being placed on an anchor (`UxrGrabbableObject.Placing`) and after (`UxrGrabbableObject.Placed`).
 
 ## `UxrGrabbableObjectAnchor` Events
 
