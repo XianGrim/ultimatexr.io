@@ -119,8 +119,8 @@ Using events instead of the component’s `Update()` method ensures that `Transf
 {{% /callout %}}
 
 - **`UxrGrabbableObject.ConstraintsApplying`**: This event is raised just before applying the built-in position and rotation constraints to the object.
-- **`UxrGrabbableObject.ConstraintsApplied`**: This event is raised immediately after the built-in constraints are applied to the object.
-- **`UxrGrabbableObject.ConstraintsFinished`**: This event occurs after `UxrGrabbableObject.ConstraintsApplied`, ensuring that all handlers subscribed to `ConstraintsApplied`, if any, have been executed.
+- **`UxrGrabbableObject.ConstraintsApplied`**: This event is raised immediately after the built-in constraints are applied to the object. Normally you add your custom constraints code here.
+- **`UxrGrabbableObject.ConstraintsFinished`**: This event is raised after `UxrGrabbableObject.ConstraintsApplied`, ensuring that all subscribed handlers have been executed. It can be useful for post-processing when applying multiple custom constraints, as the order of execution cannot be controlled.
 
 Learn more about how to apply constraints in the [Applying Constraints](/docs/programming-guide/manipulation/applying-constraints) programming section.
 
@@ -155,13 +155,13 @@ Here is an example that processes Grabbed and Released events:
 // Inherit from UxrGrabbableObjectComponent to get access to the functionality.
 public class MyComponent : UxrGrabbableObjectComponent<MyComponent>
 {
-	// Called right after the object was grabbed.
+	// Override to get called right after the object was grabbed.
 	protected override void OnObjectGrabbed(UxrManipulationEventArgs e)
 	{
 		Debug.Log("Grabbed");
 	}
 
-	// Called right after the object was released.
+	// Override to get called right after the object was released.
 	protected override void OnObjectReleased(UxrManipulationEventArgs e)
 	{
 		Debug.Log("Released");
