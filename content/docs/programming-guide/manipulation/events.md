@@ -88,13 +88,13 @@ Raised when the user presses the grab action button on the controller, indicatin
 Raised right before an object is being grabbed (`UxrGrabManager.ObjectGrabbing`) and after (`UxrGrabManager.ObjectGrabbed`).
 
 ### ObjectReleasing/ObjectReleased
-Raised when an object starts to be released (`UxrGrabManager.ObjectReleasing`) and after (`UxrGrabManager.ObjectReleased`).
+Raised when an object begins to be released (`UxrGrabManager.ObjectReleasing`) and after it is released (`UxrGrabManager.ObjectReleased`). If the object is released near a compatible and empty anchor, it will raise a Placed event instead.
 
 ### ObjectPlacing/ObjectPlaced
 Raised right before an object is being placed on an anchor (`UxrGrabManager.ObjectPlacing`) and after (`UxrGrabManager.ObjectPlaced`).
 
 ### ObjectRemoving/ObjectRemoved
-Raised right before an object is being removed from its anchor (`UxrGrabManager.ObjectRemoving`) and after (`UxrGrabManager.ObjectRemoved`).
+Raised right before an object is being grabbed or removed from its anchor (`UxrGrabManager.ObjectRemoving`) and after (`UxrGrabManager.ObjectRemoved`).
 
 ### AnchorRangeEntering/AnchorRangeLeft
 Raised when a grabbed object enters (`UxrGrabManager.AnchorRangeEntering`) or leaves (`UxrGrabManager.AnchorRangeLeft`) the proximity of an empty anchor, meaning it can be placed.
@@ -122,30 +122,51 @@ Using events instead of the component’s `Update()` method ensures that `Transf
 - **`UxrGrabbableObject.ConstraintsApplied`**: This event is raised immediately after the built-in constraints are applied to the object.
 - **`UxrGrabbableObject.ConstraintsFinished`**: This event occurs after `UxrGrabbableObject.ConstraintsApplied`, ensuring that all handlers subscribed to `ConstraintsApplied`, if any, have been executed.
 
-### Grabbing/Grabbed
+Learn more about how to apply constraints in the [Applying Constraints](/docs/programming-guide/manipulation/applying-constraints) programming section.
 
+### Grabbing/Grabbed
 Raised right before an object is being grabbed (`UxrGrabbableObject.Grabbing`) and after (`UxrGrabbableObject.Grabbed`).
 
 ### Releasing/Released
-
-Raised when an object starts to be released (`UxrGrabbableObject.Releasing`) and after (`UxrGrabbableObject.Released`).
+Raised when an object starts to be released (`UxrGrabbableObject.Releasing`) and after (`UxrGrabbableObject.Released`). If the object is released near a compatible and empty anchor, it will raise a Placed event instead.
 
 ### Placing/Placed
-
 Raised right before an object is being placed on an anchor (`UxrGrabbableObject.Placing`) and after (`UxrGrabbableObject.Placed`).
 
 ## `UxrGrabbableObjectAnchor` Events
+These events are raised for a specific [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor). Like with `UxrGrabbableObject`, they also receive a `UxrManipulationEventArgs` object with parameters.
+Check the [UxrGrabbableObjectAnchor Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObjectAnchor#events) to see how the events work and how the properties are used.
 
 ### Placing/Placed
+Raised right before an object is being placed on an anchor (`UxrGrabbableObjectAnchor.Placing`) and after (`UxrGrabbableObjectAnchor.Placed`).
 
 ### Removing/Removed
-
-### Removing/Removed
+Raised right before an object is being grabbed or removed from its anchor (`UxrGrabbableObjectAnchor.Removing`) and after (`UxrGrabbableObjectAnchor.Removed`).
 
 ### SmoothPlaceTransitionEnded
+Raised right after the smooth transition of an object placement is complete. The manipulation system uses transitions to smooth object movement. For place events, `UxrGrabbableObjectAnchor.Placed` is raised first, followed by `UxrGrabbableObjectAnchor.SmoothPlaceTransitionEnded` after the transition finishes.
 
 ## [UxrGrabbableObjectComponent](/docs/programming-guide/manipulation/uxrgrabbableobjectcomponent) Events
 
 The base `UxrGrabbableObjectComponent` class can be used as a foundation to implement manipulation logic in a convenient way. Instead of subscribing and unsubscribing to events, you simply override methods.
+
+Here is an example that processes Grabbed and Released events:
+```c#
+// Inherit from UxrGrabbableObjectComponent to get access to the functionality.
+public class MyComponent : UxrGrabbableObjectComponent<MyComponent>
+{
+	// Called right after the object was grabbed.
+	protected override void OnObjectGrabbed(UxrManipulationEventArgs e)
+	{
+		Debug.Log("Grabbed");
+	}
+
+	// Called right after the object was released.
+	protected override void OnObjectReleased(UxrManipulationEventArgs e)
+	{
+		Debug.Log("Released");
+	}
+}
+```
 
 For more details on how to implement this, check the [UxrGrabbableObjectComponent Programming Guide](/docs/programming-guide/manipulation/uxrgrabbableobjectcomponent).
