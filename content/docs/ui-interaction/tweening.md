@@ -18,6 +18,6 @@ The full set of tweening animation components are:
 
 They can be added to the different elements in a UI and will perform the given animation when enabled.
 
-For examples of use via scripting go to [How do I?](/docs/guides/scripting-how-do-i#ui)
+For examples of use via scripting go to [How do I?](/docs/programming-guide/how-do-i/ui)
 
 You can also check the full tweening API [here](/api/N_UltimateXR_Animation_UI).
