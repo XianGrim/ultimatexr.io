@@ -8,10 +8,10 @@ UltimateXR provides an event-based system for its manipulation module that allow
 
 You can access these events in two ways: 
 
-1. **Using `UxrGrabManager`**: This lets you track all object interactions.
-2. **Directly from a `UxrGrabbableObject` or `UxrGrabbableObjectAnchor`**: Use this when you only need to track events for a specific object.
+1. **Using [UxrGrabManager](/docs/programming-guide/manipulation/uxrgrabmanager)**: This lets you track all object interactions.
+2. **Directly from a [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject) or [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor)**: Use this when you only need to track events for a specific object.
 
-We’ll also cover `UxrGrabbableObjectComponent`, which allows you to handle events by overriding specific methods through inheritance.
+We’ll also cover [UxrGrabbableObjectComponent](#uxrgrabbableobjectcomponentdocsprogramming-guidemanipulationuxrgrabbableobjectcomponent-events), which allows you to handle events by overriding specific methods through inheritance.
 
 ## Manipulation Events in UltimateXR
 
@@ -70,7 +70,7 @@ The `UxrManipulationEventArgs` class has the following properties:
 - **ReleaseAngularVelocity**: The angular velocity on release.
 - **PlacementOptions**: The placement flags in place events.
 
-Check the [UxrGrabManager Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabManager#events) to see how these properties are used.
+Check the [UxrGrabManager Event API Reference](/api/T_UltimateXR_Manipulation_UxrGrabManager#events) to see how these [properties](/api/T_UltimateXR_Manipulation_UxrManipulationEventArgs#properties) are used.
 
 ### GrabTrying
 Triggered when the user presses the grab action button on the controller, indicating an attempt to grab. This doesn’t necessarily mean an object is within reach; it just shows that the user has pressed the button.
