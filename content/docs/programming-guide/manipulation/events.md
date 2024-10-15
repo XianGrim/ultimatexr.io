@@ -9,7 +9,7 @@ UltimateXR provides an event-based system for its manipulation module that allow
 You can access these events in two ways: 
 
 1. **Using [UxrGrabManager](/docs/programming-guide/manipulation/uxrgrabmanager)**: This lets you track all object interactions.
-2. **Directly from a [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject) or [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor)**: Use this when you only need to track events for a specific object.
+2. **Directly from a [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject) or [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor)**: To track events for a specific object.
 
 We’ll also cover [UxrGrabbableObjectComponent](#uxrgrabbableobjectcomponentdocsprogramming-guidemanipulationuxrgrabbableobjectcomponent-events), which allows you to handle events by overriding specific methods through inheritance.
 
@@ -20,19 +20,19 @@ Events in UltimateXR use standard C# event mechanics. You subscribe to events wh
 ```c#
 class MyGrabLogger : MonoBehaviour
 {
-	// Subscribe to event
 	private void OnEnable()
 	{
+		// Subscribe to event
 		UxrGrabManager.Instance.ObjectGrabbed += UxrGrabManager_ObjectGrabbed;
 	}
 
-	// Unsubscribe from event
 	private void OnDisable()
 	{
+		// Unsubscribe from event
 		UxrGrabManager.Instance.ObjectGrabbed -= UxrGrabManager_ObjectGrabbed;
 	}
 	
-	// This is the event handling method and receives manipulation event arguments
+	// This is the event handling method. It receives manipulation event arguments.
 	private void UxrGrabManager_ObjectGrabbed(object sender, UxrManipulationEventArgs e)
 	{
 		Debug.Log($"Object {e.GrabbableObject.name} was grabbed");
