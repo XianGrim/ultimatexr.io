@@ -73,7 +73,7 @@ This is the suggested reading for programmers, organized by the required skill l
 ### Advanced
 - [Serialization](/docs/programming-guide/architecture/other-features/serialization): Learn how data serialization works in UltimateXR.
 - [State Serialization and Synchronization](/docs/programming-guide/architecture/state-serialization-and-synchronization/introduction): Learn the common architecture that enables multiplayer, state saving and replays.
-- [Applying Manipulation Constraints](/docs/programming-guide/manipulation/applying-constraints): Learn how to apply constraints to grabbable objects during the update to create advanced manipulation logic.
+- [Handling Manipulation Constraints](/docs/programming-guide/manipulation/handling-constraints): Learn how to process constraint events from grabbable objects to create advanced manipulation logic.
 - [UxrGrabbableObjectComponent](/docs/programming-guide/manipulation/uxrgrabbableobjectcomponent): Inherit from UxrGrabbableObjectComponent to create manipulation logic in a clean and easy way.
 - [Extending UltimateXR](/docs/programming-guide/architecture/extending-ultimatexr): Find out how to extend UltimateXR with custom functionality.
 
