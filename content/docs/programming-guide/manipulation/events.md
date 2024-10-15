@@ -108,21 +108,22 @@ Check the [UxrGrabbableObject Event API Reference](/api/T_UltimateXR_Manipulatio
 
 ### ConstraintsApplying/ConstraintsApplied/ConstraintsFinished
 
-These events are raised during the manipulation module's update stage, allowing you to apply custom constraints by modifying the position and rotation of a grabbable object.
+These events are raised during the manipulation module's update stage, allowing access to `Transform` data and apply custom constraints by modifying the position and rotation of a grabbable object.
 
 The [UxrGrabbableObject](/docs/manipulation/uxrgrabbableobject) component has built-in constraint support for specifying linear and rotational limits. However, constraint events are useful for:
 - Custom constraints that go beyond built-in limits.
-- Other effects, like linear or rotational vibrations (e.g., firearm recoil in UltimateXR).
+- Applying linear or rotational vibrations (e.g., firearm recoil in UltimateXR) as an effect.
+- Visualizing the real hand’s position when the distance from the constrained hand exceeds a set threshold.
 
 {{% callout info %}}
 Using events instead of the component’s `Update()` method ensures that `Transform` changes occur at the correct stage in the manipulation workflow.
 {{% /callout %}}
 
-- **`UxrGrabbableObject.ConstraintsApplying`**: This event is raised just before applying the built-in position and rotation constraints to the object.
+- **`UxrGrabbableObject.ConstraintsApplying`**: This event is raised just before applying the built-in position and rotation constraints to the object. It can be used to store unconstrained `Transform` values.
 - **`UxrGrabbableObject.ConstraintsApplied`**: This event is raised immediately after the built-in constraints are applied to the object. Normally you add your custom constraints code here.
-- **`UxrGrabbableObject.ConstraintsFinished`**: This event is raised after `UxrGrabbableObject.ConstraintsApplied`, ensuring that all subscribed handlers have been executed. It can be useful for post-processing when applying multiple custom constraints, as the order of execution cannot be controlled.
+- **`UxrGrabbableObject.ConstraintsFinished`**: This event is raised after `UxrGrabbableObject.ConstraintsApplied`, ensuring that all subscribed handlers have been executed.
 
-Learn more about how to apply constraints in the [Applying Constraints](/docs/programming-guide/manipulation/applying-constraints) programming section.
+Learn more about constraint events in the [Handling Constraints](/docs/programming-guide/manipulation/handling-constraints) programming section.
 
 ### Grabbing/Grabbed
 Raised right before an object is being grabbed (`UxrGrabbableObject.Grabbing`) and after (`UxrGrabbableObject.Grabbed`).
