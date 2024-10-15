@@ -16,10 +16,10 @@ The event system in UltimateXR provides access to the updating stage where const
 UltimateXR provides built-in support for constraints, allowing developers to specify linear and rotational limits directly on grabbable objects.
 
 These constraints can be edited directly in the Constraints section of the [UxrGrabbableObject](/docs/manipulation/uxrgrabbableobject) component inspector.
-![](/media/docs/programming-guide/manipulation/ComponentConstraints.png)
+![](/media/docs/programming-guide/manipulation/handling-constraints/ComponentConstraints.png)
 
 They can also be visualized through gizmos in the Scene Window, giving you a clear representation of how the constraints will affect the object's movement and rotation in real-time.
-![](/media/docs/programming-guide/manipulation/ComponentConstraints.png)
+![](/media/docs/programming-guide/manipulation/handling-constraints/ConstraintGizmos.png)
 
 ## Constraint Events
 
