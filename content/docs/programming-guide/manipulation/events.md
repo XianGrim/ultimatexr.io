@@ -18,7 +18,7 @@ We’ll also cover [UxrGrabbableObjectComponent](#uxrgrabbableobjectcomponentdoc
 Events in UltimateXR use standard C# event mechanics. You subscribe to events when needed and unsubscribe when they are no longer necessary. Here’s an example of how to detect when an object is grabbed:
 
 ```c#
-class MyGrabLogger : MonoBehaviour
+public class MyGrabLogger : MonoBehaviour
 {
 	private void OnEnable()
 	{
@@ -149,7 +149,11 @@ Raised right after the smooth transition of an object placement is complete. The
 
 ## [UxrGrabbableObjectComponent](/docs/programming-guide/manipulation/uxrgrabbableobjectcomponent) Events
 
-The base `UxrGrabbableObjectComponent` class can be used as a foundation to implement manipulation logic in a convenient way. Instead of subscribing and unsubscribing to events, you simply override methods.
+The base `UxrGrabbableObjectComponent` class provides a convenient way to implement manipulation logic by overriding methods instead of manually subscribing to events.
+
+Components created this way automatically process events for the `UxrGrabbableObject` in the same GameObject. Inheriting from this class has several benefits:
+- Less code is needed, resulting in more compact and readable components.
+- It ultimately derives from `UxrComponent`, which adds a lot of functionality automatically. More [here](/docs/programming-guide/architecture/uxrcomponent) and [here](/docs/programming-guide/state-serialization-and-synchronization/introduction).
 
 Here is an example that processes Grabbed and Released events:
 ```c#
@@ -170,4 +174,4 @@ public class MyComponent : UxrGrabbableObjectComponent<MyComponent>
 }
 ```
 
-For more details on how to implement this, check the [UxrGrabbableObjectComponent Programming Guide](/docs/programming-guide/manipulation/uxrgrabbableobjectcomponent).
+For more details, visit the [UxrGrabbableObjectComponent Programming Guide](/docs/programming-guide/manipulation/uxrgrabbableobjectcomponent).

@@ -42,7 +42,7 @@ This event is raised just before applying the built-in position and rotation con
 
 Example that prints the unconstrained position of an object each frame:
 ```c#
-class MyConstraintHandler : MonoBehaviour
+public class MyConstraintHandler : MonoBehaviour
 {
 	[SerializeField] private UxrGrabbableObject _grabbableObject;
 	
@@ -72,7 +72,7 @@ This event is raised after the built-in constraints are applied, which can be us
 
 Example that keeps an object's y position always above the ground:
 ```c#
-class MyConstraintHandler : MonoBehaviour
+public class MyConstraintHandler : MonoBehaviour
 {
 	[SerializeField] private UxrGrabbableObject _grabbableObject;
 	
@@ -106,7 +106,7 @@ A common use is to compute the distance between the unconstrained object positio
 
 Example that prints the distance between the constrained and unconstrained position of an object each frame.
 ```c#
-class MyConstraintHandler : MonoBehaviour
+public class MyConstraintHandler : MonoBehaviour
 {
 	[SerializeField] private UxrGrabbableObject _grabbableObject;
 	
