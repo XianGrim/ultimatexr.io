@@ -153,7 +153,7 @@ The base `UxrGrabbableObjectComponent` class provides a convenient way to implem
 
 Components created this way automatically process events for the `UxrGrabbableObject` in the same GameObject. Inheriting from this class has several benefits:
 - Less code is needed, resulting in more compact and readable components.
-- It ultimately derives from `UxrComponent`, which adds a lot of functionality automatically. More [here](/docs/programming-guide/architecture/uxrcomponent) and [here](/docs/programming-guide/state-serialization-and-synchronization/introduction).
+- It ultimately derives from `UxrComponent`, which adds a lot of functionality automatically.
 
 Here is an example that processes Grabbed and Released events:
 ```c#
