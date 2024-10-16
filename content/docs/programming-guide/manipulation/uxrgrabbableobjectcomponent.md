@@ -41,8 +41,10 @@ When using Unity methods with components that derive from `UxrComponent`, always
 ```c#
 private override void Awake()
 {
+	// Call the base implementation first:
 	base.Awake();
-	// Your code here.
+	
+	// Your Awake() code goes here.
 }
 ```
 Failing to call the base implementation will prevent `UxrComponent` from working correctly, which could result in missing functionality.
