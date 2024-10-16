@@ -5,7 +5,7 @@ title: "UxrGrabManager"
 # UxrGrabManager
 
 ## Introduction
-`UxrGrabManager` is the central class responsible for managing manipulation interactions in UltimateXR. It is responsible for updating all manipulation-related components each frame.
+`UxrGrabManager` is the central class managing manipulation interactions in UltimateXR. It is responsible for updating all manipulation-related components each frame.
 
 This guide will show you how to program using the `UxrGrabManager`. While the manager provides standard grab mechanics automatically, allowing avatars to interact with the environment through manipulation components, programming can be used for additional tasks such as:
 - Writing code that reacts to manipulation events.
@@ -15,13 +15,13 @@ This guide will show you how to program using the `UxrGrabManager`. While the ma
 These are just a few examples. Below, we will list all the functionality that `UxrGrabManager` provides.
 
 ## Singleton
-`UxrGrabManager` is a [singleton](/docs/programming-guide/architecture/singletons) that is created automatically during startup. The global instance can be accessed using `UxrGrabManager.Instance:full`.
+`UxrGrabManager` is a [singleton](/docs/programming-guide/architecture/singletons) that is created automatically during startup. The global instance can be accessed from anywhere in the code through `UxrGrabManager.Instance:full`.
 
 ## Core Responsibilities
 At runtime, `UxrGrabManager` monitors input events and reacts to user actions like grabbing or releasing objects. These interactions are handled automatically with the help of other components such as:
--[UxrGrabber](/docs/programming-guide/manipulation/uxrgrabber): Component on avatar hands that enable grabbing.
--[UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject): Component added to objects enabling grabbing and describing how.
--[UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor): Component on points in space where objects can be snapped to.
+- [UxrGrabber](/docs/programming-guide/manipulation/uxrgrabber): Component on avatar hands that enable grabbing.
+- [UxrGrabbableObject](/docs/programming-guide/manipulation/uxrgrabbableobject): Component added to objects enabling grabbing and describing how.
+- [UxrGrabbableObjectAnchor](/docs/programming-guide/manipulation/uxrgrabbableobjectanchor): Component on points in space where objects can be snapped to.
 
 The manager’s responsibilities include:
 - **Tracking manipulation components**: Monitoring all grabbers, grabbable objects, and anchors in the scene.
