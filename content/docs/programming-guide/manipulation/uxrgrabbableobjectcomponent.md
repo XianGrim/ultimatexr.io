@@ -35,7 +35,10 @@ public class MyComponent : UxrGrabbableObjectComponent<MyComponent>
 ```
 
 {{% callout caution %}}
-`UxrComponent` implements Unity methods such as `Awake()`, `Start()`, `OnEnable()`, `OnDisable()`, etc. If your component needs to use these methods, make sure to override them and call the base implementation at the beginning of your method:
+`UxrComponent` implements Unity methods such as `Awake()`, `Start()`, `OnEnable()`, `OnDisable()` and more. If your component needs to use these methods, make sure to override them and call the base implementation at the beginning of your method.
+{{% /callout %}}
+
+When using Unity methods with components that derive from `UxrComponent`, always call the base implementation like this:
 ```c#
 private override void Awake()
 {
@@ -44,7 +47,6 @@ private override void Awake()
 }
 ```
 Failing to call the base implementation will prevent `UxrComponent` from working correctly, which could result in missing functionality.
-{{% /callout %}}
 
 ## Full Event List
 
