@@ -17,8 +17,7 @@ This component inherits from [UxrComponent](/docs/programming-guide/architecture
 ## Event Handling With Method Overriding
 Unlike the traditional event subscription method, `UxrGrabbableObjectComponent` uses method overriding for event handling. This reduces the amount of code required to manage events such as grabbing, releasing, and placing objects. Simply override methods like `OnObjectGrabbed` or `OnObjectReleased` to define the behavior of your component.
 
-Example:
-
+For example:
 ```c#
 public class MyComponent : UxrGrabbableObjectComponent<MyComponent>
 {
@@ -51,7 +50,6 @@ Failing to call the base implementation will prevent `UxrComponent` from working
 ## Full Event List
 
 Here is an example that shows the full list of events that can be overridden, outputting descriptive log messages for each event:
-
 ```c#
 public class MyComponent : UxrGrabbableObjectComponent<MyComponent>
 {
