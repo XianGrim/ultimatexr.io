@@ -4,6 +4,8 @@ title: "UltimateXR Documentation Hub"
 
 # Documentation Hub
 
+## Introduction
+
 ![](/media/docs/getting-started/documentation-hub/TopBanner.png)
 
 Welcome to the **Documentation Hub**!

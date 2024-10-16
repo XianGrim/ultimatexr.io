@@ -4,6 +4,8 @@ title: "Manipulation Events"
 
 # Events
 
+## Introduction
+
 UltimateXR provides an event-based system for its manipulation module that allows developers to respond to specific actions and interactions. These events can be tied to grabbing, releasing, or interacting with objects, giving you full control over how your application reacts to them.
 
 You can access these events in two ways: 

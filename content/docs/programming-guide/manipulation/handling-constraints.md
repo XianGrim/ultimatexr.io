@@ -4,6 +4,8 @@ title: "Handling Constraints"
 
 # Handling Constraints
 
+## Introduction
+
 In the context of grabbable objects, constraints are rules or limits that control how an object can be manipulated, both in terms of movement and rotation. They are essential in VR and interaction systems to create realistic behavior, such as limiting how far an object can be moved or rotated during manipulation.
 
 The event system in UltimateXR provides access to the updating stage where constraints are applied, allowing for features like:
