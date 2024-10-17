@@ -56,11 +56,8 @@ By default, all features are enabled.
 
 For a full description of these methods, refer to the [UxrGrabManager API Reference](/api/T_UltimateXR_Manipulation_UxrGrabManager#methods).
 
-Checks if the given avatar can grab something with the specified hand:
-```c#
-CanGrabSomething(UxrAvatar avatar, UxrHandSide handSide)
-```
-  
+- `CanGrabSomething(UxrAvatar avatar, UxrHandSide handSide)`:
+  Checks if the given avatar can grab something with the specified hand  
 
 - **CanGrabSomething(UxrGrabber grabber)**:  
   Checks if the specified grabber can grab an object.
