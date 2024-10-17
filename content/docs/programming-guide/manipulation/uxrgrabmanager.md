@@ -33,13 +33,13 @@ The manager’s responsibilities include:
 - **Syncing manipulation**: Ensuring consistency in multiplayer sessions.
 
 ## Events
-`UxrGrabManager` provides several key events to track object interactions. Refer to the [Events](/docs/programming-guide/manipulation/events#uxrgrabmanagerdocsprogramming-guidemanipulationuxrgrabmanager-events) section for more information
+`UxrGrabManager` provides several key events to track object interactions. Refer to the [Events](/docs/programming-guide/manipulation/events#uxrgrabmanagerdocsprogramming-guidemanipulationuxrgrabmanager-events) guide for more information
 
 ## Properties
 
 ### Features
 
-The `UxrGrabManager.Features` property, which uses the `UxrManipulationFeatures` type, allows you to control which manipulation features are enabled during object interaction. By configuring this property, you can toggle specific features such as object constraints, smooth transitions, affordances, and more.
+The `UxrGrabManager.Features` property, which uses the `UxrManipulationFeatures` flags, allows control over which manipulation features are enabled during object interaction. By configuring this property, you can toggle specific features such as object constraints, smooth transitions, affordances, and more.
 
 - **ObjectManipulation**: Updates the transform of `UxrGrabbableObject` based on user interaction.
 - **ObjectConstraints**: Applies constraints set in the `UxrGrabbableObject` component.
@@ -56,8 +56,11 @@ By default, all features are enabled.
 
 For a full description of these methods, refer to the [UxrGrabManager API Reference](/api/T_UltimateXR_Manipulation_UxrGrabManager#methods).
 
-- **CanGrabSomething(UxrAvatar avatar, UxrHandSide handSide)**:  
-  Checks if the given avatar can grab something with the specified hand.
+Checks if the given avatar can grab something with the specified hand:
+```c#
+CanGrabSomething(UxrAvatar avatar, UxrHandSide handSide)
+```
+  
 
 - **CanGrabSomething(UxrGrabber grabber)**:  
   Checks if the specified grabber can grab an object.
