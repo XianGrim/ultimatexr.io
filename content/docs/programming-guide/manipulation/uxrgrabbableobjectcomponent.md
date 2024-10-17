@@ -1,5 +1,5 @@
 ---
-title: "UxrGrabbableObjectComponent"
+title: "UxrGrabbableObjectComponent Programming Guide"
 ---
 
 # UxrGrabbableObjectComponent
