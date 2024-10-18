@@ -219,7 +219,9 @@ The avatar hands are not automatically repositioned when a grabbed object's `Tra
 - `UxrGrabManager.KeepGripInPlace(UxrGrabber grabber)`:  
   Ensures that a specific grip remains in the correct position after manipulating or constraining the object.
   
-### Objects Constrained To a Single Axis Rotation
+### Objects Constrained To a Single Rotation Axis
+
+These are objects that can rotate along a single axis only, such as a steering wheel, door handle, or knob.
 
 - `UxrGrabManager.GetObjectSingleRotationAxisDegrees(UxrGrabbableObject grabbableObject)`:  
   Retrieves the current rotation angle (in degrees) for objects constrained to a single axis of rotation.
