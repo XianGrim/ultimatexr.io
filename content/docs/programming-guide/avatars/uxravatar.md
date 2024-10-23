@@ -4,7 +4,11 @@ title: "UxrAvatar"
 
 # UxrAvatar
 
-The `UxrAvatar` component provides properties, methods, and events to control avatars at runtime. The full API can be explored in the [UxrAvatar API Reference](/api/T_UltimateXR_Avatar_UxrAvatar#uxravatar-class) and the user guide can be found in the [UxrAvatar component guide](/docs/avatars/uxravatar).
+The `UxrAvatar` component provides properties, methods, and events to control avatars at runtime.
+
+{{% callout info %}}
+The full API can be explored in the [UxrAvatar API Reference](/api/T_UltimateXR_Avatar_UxrAvatar#uxravatar-class) and the user guide can be found in the [UxrAvatar Component Guide](/docs/avatars/uxravatar).
+{{% /callout %}}
 
 The static `UxrAvatar.LocalAvatar` property allows you to access the `UxrAvatar` component representing the user, from anywhere in the code. It returns the first avatar in the scene with the `AvatarMode` property set to `Local`.
 
