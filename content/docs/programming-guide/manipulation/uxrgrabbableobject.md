@@ -6,7 +6,7 @@ title: "UxrGrabbableObject Programming Guide"
 
 ## Introduction
 
-The `UxrGrabbableObject` component, when added to a GameObject, allows the object to be manipulated by `UxrGrabber` components found in the hands of a `UxrAvatar`. 
+The `UxrGrabbableObject` component, when added to a GameObject, allows the object to be manipulated by `UxrGrabber` components found in the hands of a `UxrAvatar`. The full API can be explored in the [UxrGrabbableObject API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject) and the user guide can be found in the [UxrGrabbableObject component guide](/docs/manipulation/uxrgrabbableobject).
 
 Some key features include:
 - **Automatic handling**: Manipulation is seamlessly managed by the `UxrGrabManager`. Once added to the scene, the grab manager handles all interactions automatically.
@@ -16,6 +16,8 @@ Some key features include:
 - **Hand Pose Editor support**: The Hand Pose Editor can create poses that are previewed and edited directly in the inspector window, ensuring objects are grabbed in the intended way.
 - **Event support**: Events such as `Grabbed`, `Released`, and `Placed` allow custom logic to be executed when users interact with the object. Each event has both pre and post versions.
 - **Constraints support**: Use events like `ConstraintsApplying`, `ConstraintsApplied`, and `ConstraintsFinished` to implement more complex behavior when objects are being manipulated.
+
+We've divided the grabbable object programming guide into functional sections to make the information easier to navigate and access. Each section focuses on a specific area, such as hierarchy, constraints, grabbing mechanics, and more, allowing you to quickly find the details relevant to your needs.
 
 ## General Functionality
 
@@ -60,7 +62,7 @@ Other examples include an aircraft yoke, where the yoke column rotates as the ch
 - `Transform` `GrabbableParent`  
   The transform of the parent object that controls this object’s movement.
 - `bool` `ControlParentDirection`  
-  Determines whether the parent’s direction is controlled during grabbing.
+  Determines whether the object's manipulation controls the parent’s direction through a look-at to the child.
 - `bool` `IsDummyGrabbableParent`  
   Checks if the object is a dummy parent used for manipulation purposes.
 
@@ -88,24 +90,24 @@ This section defines how the object’s movement is limited along different axes
 
 - `bool` `HasTranslationConstraint`  
   Indicates if the object has translation constraints applied.
-- `int` `RangeOfMotionTranslationAxisCount`  
-  Gets the number of translation axes that have motion constraints.
-- `Vector3` `RangeOfMotionTranslationAxes`  
-  Returns the axes where the object can move within a defined range.
-- `Vector3` `LimitedRangeOfMotionTranslationAxes`  
-  Specifies the axes where the object’s translation is limited.
-- `int` `SingleTranslationAxisIndex`  
-  Gets the index of the single axis allowed for translation if applicable.
 - `UxrTranslationConstraintMode` `TranslationConstraint`  
   Defines the translation constraint mode for the object.
-- `BoxCollider` `RestrictToBox`  
-  Defines the box collider used for restricting translation when applicable.
-- `SphereCollider` `RestrictToSphere`  
-  Defines the sphere collider used for restricting translation when applicable.
 - `Vector3` `TranslationLimitsMin`  
   The minimum translation limits applied to the object in local space.
 - `Vector3` `TranslationLimitsMax`  
   The maximum translation limits applied to the object in local space.
+- `int` `RangeOfMotionTranslationAxisCount`  
+  Gets the number of translation axes that have motion constraints.
+- `IEnumerable<UxrAxis>` `RangeOfMotionTranslationAxes`  
+  Returns the axes where the object can move within a defined range.
+- `IEnumerable<UxrAxis>` `LimitedRangeOfMotionTranslationAxes`  
+  Specifies the axes where the object’s translation is limited.
+- `int` `SingleTranslationAxisIndex`  
+  Gets the index of the single axis allowed for translation if applicable.
+- `BoxCollider` `RestrictToBox`  
+  Defines the box collider used for restricting translation when applicable.
+- `SphereCollider` `RestrictToSphere`  
+  Defines the sphere collider used for restricting translation when applicable.
   
 ## Rotation Constraints
 
@@ -119,11 +121,17 @@ This section covers restrictions on how the object can rotate, including the axe
   The provider that manages rotation handling when constraints are active.
 - `bool` `NeedsTwoHandsToRotate`  
   Specifies if two hands are required to rotate the object.
+- `UxrRotationConstraintMode` `RotationConstraint`  
+  Defines the rotation constraint mode for the object.
+- `Vector3` `RotationAngleLimitsMin`  
+  The minimum rotation limits in local space.
+- `Vector3` `RotationAngleLimitsMax`  
+  The maximum rotation limits in local space.
 - `int` `RangeOfMotionRotationAxisCount`  
   Gets the number of rotation axes that have motion constraints.
-- `Vector3` `RangeOfMotionRotationAxes`  
+- `IEnumerable<UxrAxis>` `RangeOfMotionRotationAxes`  
   Returns the axes where the object can rotate within a defined range.
-- `Vector3` `LimitedRangeOfMotionRotationAxes`  
+- `IEnumerable<UxrAxis>` `LimitedRangeOfMotionRotationAxes`  
   Specifies the axes where the object’s rotation is limited.
 - `int` `SingleRotationAxisIndex`  
   Gets the index of the single axis allowed for rotation if applicable.
@@ -133,21 +141,15 @@ This section covers restrictions on how the object can rotate, including the axe
   The minimum degrees allowed for objects with a single axis rotation.
 - `float` `MaxSingleRotationDegrees`  
   The maximum degrees allowed for objects with a single axis rotation.
-- `UxrRotationConstraintMode` `RotationConstraint`  
-  Defines the rotation constraint mode for the object.
 - `UxrAxis` `RotationLongitudinalAxis`  
-  Defines which axis is considered the longitudinal rotation axis in constrained rotations.
-- `Vector3` `RotationAngleLimitsMin`  
-  The minimum rotation limits in local space.
-- `Vector3` `RotationAngleLimitsMax`  
-  The maximum rotation limits in local space.
+  Defines which axis is considered the longitudinal rotation axis in rotations constrained on two or more axes.
 
 ### Methods
 
 - `UxrAxis` `GetMostProbableLongitudinalRotationAxis()`  
-  Returns the most probable longitudinal rotation axis for the object.
+  Tries to infer the most probable longitudinal rotation axis for the object.
 - `UxrRotationProvider` `GetAutoRotationProvider(Vector3 gripPos)`  
-  Infers the most appropriate rotation provider based on the object’s shape and grip.
+  Infers the most appropriate rotation provider, the source of leverage, based on the object’s shape and grip.
   
 ## Resistance
 
@@ -169,7 +171,7 @@ This section includes properties and methods related to how the object can be gr
 - `bool` `IsBeingGrabbed`  
   Indicates if the object is currently being grabbed.
 - `bool` `IsGrabbable`  
-  Specifies if the object is grabbable at the current time.
+  Gets or sets whether the object can be grabbed.
 - `int` `GrabPointCount`  
   Returns the number of grab points available on the object.
 - `bool` `FirstGrabPointIsMain`  
@@ -177,8 +179,6 @@ This section includes properties and methods related to how the object can be gr
 
 ### Methods
 
-- `void` `ReleaseGrabs(bool propagateEvents)`  
-  Releases all grabbers holding the object, with an option to propagate events.
 - `UxrGrabPointInfo` `GetGrabPoint(int index)`  
   Returns information about the grab point at the specified index.
 - `void` `SetGrabPointEnabled(int index, bool enabled)`  
@@ -191,6 +191,8 @@ This section includes properties and methods related to how the object can be gr
   Checks if the object can be grabbed by the specified grabber using the given grab point.
 - `bool` `ComputeRequiredGrabberTransform(UxrGrabber grabber, int grabPoint, out Vector3 grabberPosition, out Quaternion grabberRotation)`  
   Computes the required position and rotation for the grabber to hold the object.
+- `void` `ReleaseGrabs(bool propagateEvents)`  
+  Releases all grabbers holding the object, with an option to propagate events.
 
 ## Placement and Anchoring
 
@@ -201,15 +203,15 @@ This section focuses on how the object can be placed on specific anchors or snap
 - `string` `Tag`  
   A tag that identifies which anchor components are compatible for placement.
 - `Transform` `DropAlignTransform`  
-  Defines the transform used for aligning the object during drop.
+  Defines the transform used for aligning the object to an anchor.
 - `Transform` `DropProximityTransform`  
-  Defines the transform used for checking proximity when dropping the object.
+  Defines the transform used for checking proximity to other anchors for placement.
 - `UxrGrabbableObjectAnchor` `StartAnchor`  
   The starting anchor where the object is initially placed.
 - `UxrGrabbableObjectAnchor` `CurrentAnchor`  
   The anchor where the object is currently placed.
 - `bool` `IsPlaceable`  
-  Determines if the object can be placed on a compatible anchor.
+  Determines if the object can be placed on compatible anchors.
 - `bool` `UseParenting`  
   Specifies if the object should be parented to the anchor or null upon grabbing or placing.
 - `UxrSnapToAnchorMode` `DropSnapMode`  
@@ -219,7 +221,7 @@ This section focuses on how the object can be placed on specific anchors or snap
 
 - `bool` `CanBePlacedOnAnchor(UxrGrabbableObjectAnchor anchor)`  
   Checks if the object can be placed on the specified anchor.
-- `bool` `UxrGrabbableObject.CanBePlacedOnAnchor(UxrGrabbableObjectAnchor anchor, out float distance)`  
+- `bool` `CanBePlacedOnAnchor(UxrGrabbableObjectAnchor anchor, out float distance)`  
   Checks if the object can be placed on the specified anchor and returns the euclidean distance to it.
 - `void` `RemoveFromAnchor(bool propagateEvents)`  
   Removes the object from the anchor, optionally propagating events.
@@ -255,9 +257,9 @@ This section manages smooth transitions when the object is grabbed, constrained 
 ### Methods
 
 - `void` `StopSmoothManipulationTransition()`  
-  Stops any ongoing smooth manipulation transitions.
+  Stops the any ongoing smooth grab transitions.
 - `void` `FinishSmoothTransitions()`  
-  Ends all smooth transitions, allowing direct manipulation of the object.
+  Ends all smooth transitions, including constraints and placement.
 
 ## Events
 These are events raised during object interactions, allowing custom logic to be executed when objects are grabbed, released, or placed, as well as when constraints are applied.
