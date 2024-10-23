@@ -7,6 +7,10 @@ title: "UxrGrabManager Programming Guide"
 ## Introduction
 `UxrGrabManager` is the central class managing manipulation interactions in UltimateXR. It is responsible for updating all manipulation-related components each frame.
 
+{{% callout info %}}
+The full API with more detailed descriptions can be explored in the [UxrGrabManager API Reference](/api/T_UltimateXR_Manipulation_UxrGrabManager).
+{{% /callout %}}
+
 This guide will show you how to program using the `UxrGrabManager`. While the manager provides standard grab mechanics automatically, allowing avatars to interact with the environment through manipulation components, programming can be used for additional tasks such as:
 - Writing code that reacts to manipulation events.
 - Querying information about current grabs.
