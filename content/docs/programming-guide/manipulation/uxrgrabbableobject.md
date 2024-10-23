@@ -17,77 +17,85 @@ Some key features include:
 - **Event support**: Events such as `Grabbed`, `Released`, and `Placed` allow custom logic to be executed when users interact with the object. Each event has both pre and post versions.
 - **Constraints support**: Use events like `ConstraintsApplying`, `ConstraintsApplied`, and `ConstraintsFinished` to implement more complex behavior when objects are being manipulated.
 
-## General Properties
+## General Functionality
+
+This section covers basic properties and methods that define the object's general behavior.
 
 ### Properties
 
-- `bool` `IsLockedInPlace`  
-  Indicates if the object is locked in place and cannot be moved.
-- `bool` `AllowMultiGrab`  
-  Allows the object to be grabbed by multiple grabbers at the same time.
 - `int` `Priority`  
   Defines the object's priority for being grabbed when multiple objects are within reach.
+- `bool` `AllowMultiGrab`  
+  Allows the object to be grabbed by multiple grabbers at the same time.
+- `bool` `IsLockedInPlace`  
+  Indicates if the object is locked in place and cannot be moved.
 
 ### Methods
 
 - `void` `ResetPositionAndState(bool propagateEvents)`  
   Resets the object’s position and state, optionally propagating events.
 
-## Grab Hieararchy
+## Grabbable Hierararchy
+
+This section focuses on how the grabbable object interacts with other grabbable parent or child objects in a hierarchy, controlling dependencies and manipulation across multiple objects.
+
+A special case of a parent is a dummy parent grabbable parent.
+
+{{% callout info %}}
+A dummy parent is a parent object with an `UxrGrabbableObject` component that can only be manipulated through its children but still has its own movement and rotation constraints.
+{{% /callout %}}
+
+For example, in a door and handle setup, the door is the parent and the handle is the grabbable object. By enabling the `ControlParentDirection` property (or using the inspector), the handle can control the door’s aperture without the door being directly grabbable. You can enable the `IsDummyGrabbableParent` property (or using the inspector) to set up constraints for the parent without requiring grab points.
+
+Other examples include an aircraft yoke, where the yoke column rotates as the child yoke object is manipulated.
 
 ### Properties
 
-- `bool` `IsDummyGrabbableParent`  
-  Checks if the object is a dummy parent used for manipulation purposes.
-- `bool` `ControlParentDirection`  
-  Determines whether the parent’s direction is controlled during grabbing.
-- `bool` `IgnoreGrabbableParentDependency`  
-  Specifies if this object should ignore dependencies with a parent grabbable object.
 - `bool` `HasGrabbableParentDependency`  
   Indicates if this object has dependencies on a grabbable parent.
 - `bool` `UsesGrabbableParentDependency`  
   Checks if the object uses its parent's dependency setup for handling grabs.
+- `bool` `IgnoreGrabbableParentDependency`  
+  Specifies if this object should ignore dependencies with a parent grabbable object.
 - `Transform` `GrabbableParent`  
   The transform of the parent object that controls this object’s movement.
+- `bool` `ControlParentDirection`  
+  Determines whether the parent’s direction is controlled during grabbing.
+- `bool` `IsDummyGrabbableParent`  
+  Checks if the object is a dummy parent used for manipulation purposes.
 
-## Constraints and Resistance
+## General Constraints
+
+This section contains general rules that limit how the object can move or rotate, applying basic restrictions on its motion.
 
 ### Properties
 
 - `bool` `IsConstrained`  
   Checks if the object has any movement constraints, such as translation or rotation limits.
+- `float` `LockedGrabReleaseDistance`  
+  Distance allowed before automatically releasing a grab when the object is constrained.
+
+### Methods
+  
+- `void` `KeepGripsInPlace()`  
+  Keeps the current grips in place after an object's `Transform` has been manually moved or rotated.
+  
+## Translation Constraints
+
+This section defines how the object’s movement is limited along different axes and within certain areas, like a box or sphere.
+
+### Properties
+
 - `bool` `HasTranslationConstraint`  
   Indicates if the object has translation constraints applied.
-- `bool` `HasRotationConstraint`  
-  Indicates if the object has rotation constraints applied.
-- `UxrRotationProvider` `RotationProvider`  
-  The provider that manages rotation handling when constraints are active.
-- `bool` `NeedsTwoHandsToRotate`  
-  Specifies if two hands are required to rotate the object.
 - `int` `RangeOfMotionTranslationAxisCount`  
   Gets the number of translation axes that have motion constraints.
-- `int` `RangeOfMotionRotationAxisCount`  
-  Gets the number of rotation axes that have motion constraints.
 - `Vector3` `RangeOfMotionTranslationAxes`  
   Returns the axes where the object can move within a defined range.
-- `Vector3` `RangeOfMotionRotationAxes`  
-  Returns the axes where the object can rotate within a defined range.
 - `Vector3` `LimitedRangeOfMotionTranslationAxes`  
   Specifies the axes where the object’s translation is limited.
-- `Vector3` `LimitedRangeOfMotionRotationAxes`  
-  Specifies the axes where the object’s rotation is limited.
 - `int` `SingleTranslationAxisIndex`  
   Gets the index of the single axis allowed for translation if applicable.
-- `int` `SingleRotationAxisIndex`  
-  Gets the index of the single axis allowed for rotation if applicable.
-- `float` `SingleRotationAxisDegrees`  
-  Gets or sets the rotation in degrees for objects with a single rotation axis.
-- `float` `LockedGrabReleaseDistance`  
-  Distance allowed for releasing the grab when the object is locked.
-- `float` `MinSingleRotationDegrees`  
-  The minimum degrees allowed for objects with a single axis rotation.
-- `float` `MaxSingleRotationDegrees`  
-  The maximum degrees allowed for objects with a single axis rotation.
 - `UxrTranslationConstraintMode` `TranslationConstraint`  
   Defines the translation constraint mode for the object.
 - `BoxCollider` `RestrictToBox`  
@@ -98,6 +106,33 @@ Some key features include:
   The minimum translation limits applied to the object in local space.
 - `Vector3` `TranslationLimitsMax`  
   The maximum translation limits applied to the object in local space.
+  
+## Rotation Constraints
+
+This section covers restrictions on how the object can rotate, including the axes it can rotate around and the limits on its rotation.
+
+### Properties
+
+- `bool` `HasRotationConstraint`  
+  Indicates if the object has rotation constraints applied.
+- `UxrRotationProvider` `RotationProvider`  
+  The provider that manages rotation handling when constraints are active.
+- `bool` `NeedsTwoHandsToRotate`  
+  Specifies if two hands are required to rotate the object.
+- `int` `RangeOfMotionRotationAxisCount`  
+  Gets the number of rotation axes that have motion constraints.
+- `Vector3` `RangeOfMotionRotationAxes`  
+  Returns the axes where the object can rotate within a defined range.
+- `Vector3` `LimitedRangeOfMotionRotationAxes`  
+  Specifies the axes where the object’s rotation is limited.
+- `int` `SingleRotationAxisIndex`  
+  Gets the index of the single axis allowed for rotation if applicable.
+- `float` `SingleRotationAxisDegrees`  
+  Gets or sets the rotation in degrees for objects with a single rotation axis.
+- `float` `MinSingleRotationDegrees`  
+  The minimum degrees allowed for objects with a single axis rotation.
+- `float` `MaxSingleRotationDegrees`  
+  The maximum degrees allowed for objects with a single axis rotation.
 - `UxrRotationConstraintMode` `RotationConstraint`  
   Defines the rotation constraint mode for the object.
 - `UxrAxis` `RotationLongitudinalAxis`  
@@ -106,21 +141,28 @@ Some key features include:
   The minimum rotation limits in local space.
 - `Vector3` `RotationAngleLimitsMax`  
   The maximum rotation limits in local space.
+
+### Methods
+
+- `UxrAxis` `GetMostProbableLongitudinalRotationAxis()`  
+  Returns the most probable longitudinal rotation axis for the object.
+- `UxrRotationProvider` `GetAutoRotationProvider(Vector3 gripPos)`  
+  Infers the most appropriate rotation provider based on the object’s shape and grip.
+  
+## Resistance
+
+This section defines how much resistance the object has to being moved or rotated, simulating physical properties like weight or friction.
+
+### Properties
+
 - `float` `TranslationResistance`  
   Resistance applied to translation movements.
 - `float` `RotationResistance`  
   Resistance applied to rotational movements.
 
-### Methods
-
-- `void` `KeepGripsInPlace()`  
-  Keeps the current grips in place without releasing them.
-- `UxrAxis` `GetMostProbableLongitudinalRotationAxis()`  
-  Returns the most probable longitudinal rotation axis for the object.
-- `UxrRotationProvider` `GetAutoRotationProvider(Vector3 gripPos)`  
-  Infers the most appropriate rotation provider based on the object’s shape and grip.
-
 ## Grabbing and Releasing
+
+This section includes properties and methods related to how the object can be grabbed, held, and released by one or more hands.
 
 ### Properties
 
@@ -152,6 +194,8 @@ Some key features include:
 
 ## Placement and Anchoring
 
+This section focuses on how the object can be placed on specific anchors or snap into position when released.
+
 ### Properties
 
 - `string` `Tag`  
@@ -182,6 +226,8 @@ Some key features include:
 
 ## Physics
 
+This section covers physical behaviors when the object is released, like whether it becomes dynamic or how it responds to forces like throwing.
+
 ### Properties
 
 - `Rigidbody` `RigidBodySource`  
@@ -199,6 +245,8 @@ Some key features include:
 
 ## Transitions
 
+This section manages smooth transitions when the object is grabbed, constrained or placed, ensuring fluid and natural movements.
+
 ### Properties
 
 - `bool` `IsInSmoothTransition`  
@@ -213,6 +261,8 @@ Some key features include:
 
 ## Events
 These are events raised during object interactions, allowing custom logic to be executed when objects are grabbed, released, or placed, as well as when constraints are applied.
+
+Refer to the [Events](/docs/programming-guide/manipulation/events#uxrgrabmanagerdocsprogramming-guidemanipulationuxrgrabmanager-events) guide for a full description.
 
 - `ConstraintsApplying`  
   Raised when constraints are about to be applied to the object.
