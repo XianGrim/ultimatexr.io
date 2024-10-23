@@ -6,7 +6,11 @@ title: "UxrGrabbableObject Programming Guide"
 
 ## Introduction
 
-The `UxrGrabbableObject` component, when added to a GameObject, allows the object to be manipulated by `UxrGrabber` components found in the hands of a `UxrAvatar`. The full API can be explored in the [UxrGrabbableObject API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject) and the user guide can be found in the [UxrGrabbableObject component guide](/docs/manipulation/uxrgrabbableobject).
+The `UxrGrabbableObject` component, when added to a GameObject, allows the object to be manipulated by `UxrGrabber` components found in the hands of a `UxrAvatar`.
+
+{{% callout info %}}
+The full API can be explored in the [UxrGrabbableObject API Reference](/api/T_UltimateXR_Manipulation_UxrGrabbableObject) and the user guide can be found in the [UxrGrabbableObject Component Guide](/docs/manipulation/uxrgrabbableobject).
+{{% /callout %}}
 
 Some key features include:
 - **Automatic handling**: Manipulation is seamlessly managed by the `UxrGrabManager`. Once added to the scene, the grab manager handles all interactions automatically.
