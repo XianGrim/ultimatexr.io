@@ -268,7 +268,7 @@ This section manages smooth transitions when the object is grabbed, constrained 
 ## Events
 These are events raised during object interactions, allowing custom logic to be executed when objects are grabbed, released, or placed, as well as when constraints are applied.
 
-Refer to the [Events](/docs/programming-guide/manipulation/events#uxrgrabmanagerdocsprogramming-guidemanipulationuxrgrabmanager-events) guide for a full description.
+Refer to the [Events](/docs/programming-guide/manipulation/events#uxrgrabbableobjectdocsprogramming-guidemanipulationuxrgrabbableobject-events) guide for a full description.
 
 - `ConstraintsApplying`  
   Raised when constraints are about to be applied to the object.
