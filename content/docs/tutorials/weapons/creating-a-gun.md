@@ -3,6 +3,7 @@ title: "Creating a Gun"
 ---
 
 # Creating a Gun
+![](/media/docs/tutorials/weapons/creating-a-gun/pistol-on-table.png)
 
 ## Weapon System Overview
 
