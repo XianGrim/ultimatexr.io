@@ -20,30 +20,27 @@ The main weapon component. It ties together:
 - ammo checks (mag-based)
 - recoil (procedural)
 - audio + haptics
-It also **requires** a `UxrProjectileSource`
+- **requires** a `UxrProjectileSource`
 
-#### UxrProjectileSource
+#### `UxrProjectileSource`
 The component that actually performs the shot:
 - chooses a shot type (by index)
 - fires using a source transform (position/forward)
 - registers projectiles/shots via the weapon manager
 - optionally spawns muzzle prefabs and impact prefabs  
-(See Shoot(), ShotTypes, and raycast helpers.)
 
-#### Triggers (UxrFirearmTrigger entries)
+#### Triggers (`UxrFirearmTrigger` entries)
 A firearm can have **one or more triggers**. Each trigger can:
 - fire a different shot type (ProjectileShotIndex)
 - use a different shot cycle (semi, full auto, manual reload)
 - have its own recoil/audio/haptics
 - optionally require a magazine anchor for ammo  
-(See trigger fields: cycle type, max frequency, audio, haptics, recoil.)
 
-#### Mag Anchor + Mag (UxrGrabbableObjectAnchor + UxrFirearmMag)
+#### Mag Anchor + Mag (`UxrGrabbableObjectAnchor` + `UxrFirearmMag`)
 - The **mag anchor** is where a magazine physically attaches.
 - The **mag** stores ammo:
   - Capacity = max rounds
   - Rounds = remaining rounds (clamped) and raises a change event  
-(See Capacity/Rounds and RoundsChanged.)
 
 #### Recoil
 Recoil is applied after constraints so it happens in the correct order. Recoil is configurable per trigger:
@@ -54,32 +51,55 @@ Recoil is applied after constraints so it happens in the correct order. Recoil i
 
 ### Optional Components
 
-#### UxrFirearmAmmoLabel
+#### `UxrFirearmAmmoLabel`
 A simple UI helper that draws ammo remaining (and optionally capacity) from a chosen trigger index.
 
 ---
 
 ## Setting Up the Model
+Let's get a basic weapon working! This will cover to minimum requirements to create a functional weapon. We'll cover more areas in the Polish section.
 
-Recommended hierarchy:
-
-- **Gun** (Empty GameObject) ← *all weapon components live here*
-  - **Gun_Model** (Empty GameObject) ← *middleman for easy swapping/scaling*
+First, add your desired weapon model to the scene. Next, we'll set up the recommended hierarchy for the weapon:
+- **Gun** (Empty GameObject) ← *logic (components) will live here*
+  - **Gun Model** (Empty GameObject) ← *middleman for easy swapping/scaling but optional*
     - **GunMesh** (your mesh/model)
+
+![](/media/docs/tutorials/weapons/creating-a-gun/gun-3-tier-setup.png)
+> The “middleman” model object is recommended due to how it keeps your weapon logic unscaled and makes swapping meshes/models painless.
+
+After adding your model, you may need to reset the position and rotation
+![](/media/docs/tutorials/weapons/creating-a-gun/pistol-model-scale.png)
+{{% callout tip %}}
+- Feel free to leave the scale of the model at the same values it was imported in as. Use the middleman ("Gun Model") object if you need to adjust the scale.
+- If your model seems to disappear after reseting the rotation and position, the root Gun object is most likely out of view. Select it in the heirarchy, then press the "F" key to auto-focus on it.
+{{% /callout %}}
+
+
   - **ShotSource** (Empty GameObject) ← *muzzle / bullet origin*
   - **Tip** (Optional) ← *muzzle flash spawn transform if used*
   - **TriggerTransform** (Optional) ← *a child transform that visually rotates*
   - **MagAnchor** (Empty GameObject) ← *where the magazine will seat*
 
-> The “middleman” model object keeps your weapon logic unscaled and makes swapping meshes painless.
+Next, we'll add a few more empty game objects which we'll use later as reference points.
+- ShotSource
+- Tip
+- Recoil (if recoil isn't wanted, you can skip this one!)
+![](/media/docs/tutorials/weapons/creating-a-gun/gun-reference-points.png)
 
----
+And with those reference points added, we can start adding components!
 
-## Add Components and References (Minimum Working Setup)
+## Components and References
+First, lets start by adding the `UxrGrabbableObject` component so that we can pick up our weapon. Remember to add the component to our base "Gun" object and not the middleman or model. After adding the component, set up the grabs as normal 
+{{% callout tip %}}
+Check out our other guides, such as grabbing a ball or creating a staff if you need more information on this component!
+{{% /callout %}}
 
-### 1) Add UxrGrabbableObject (Grip)
-- Add a `UxrGrabbableObject` to **Gun**
-- Create your main grip pose(s)
+As you can see from the image below, the model we are using looks a bit too big. We can use our middleman object to adjust it's scale down to a value that fits better. This value may be different for your model, just set it to a value you like!
+![](/media/docs/tutorials/weapons/creating-a-gun/pistol-too-big.png)
+
+For the pose, we recommend selecting either a generic one or the DemoGun pose for now. Even if the pose may not fit your model completely, we want to get the gun working at the moment. We can come back at the end and add details/polish!
+
+
 - Confirm you can pick up the gun in play mode
 
 ### 2) Add UxrProjectileSource
