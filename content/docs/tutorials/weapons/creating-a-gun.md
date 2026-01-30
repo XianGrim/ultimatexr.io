@@ -97,36 +97,22 @@ Check out our other guides, such as grabbing a ball or creating a staff if you n
 As you can see from the image below, the model we are using looks a bit too big. We can use our middleman object to adjust it's scale down to a value that fits better. This value may be different for your model, just set it to a value you like!
 ![](/media/docs/tutorials/weapons/creating-a-gun/pistol-too-big.png)
 
-For the pose, we recommend selecting either a generic one or the DemoGun pose for now. Even if the pose may not fit your model completely, we want to get the gun working at the moment. We can come back at the end and add details/polish!
+For the pose, we'll select either a generic one or DemoGun for now. Even if the pose may not fit your model completely, we want to get the gun working at the moment. We can come back at the end and add details/polish!
 
+Once a quick pose is added, let's hop into play mode and test our grabbable!
+{{< video src="/media/docs/tutorials/weapons/creating-a-gun/Gun-first-grabbable.mp4" >}}
+{{% callout tip %}}
+Doing these small "sanity" checks can help you catch any issues or bugs early!
+{{% /callout %}}
 
-- Confirm you can pick up the gun in play mode
+### Add the UxrFirearmWeapon Component
 
-### 2) Add UxrProjectileSource
-- Add `UxrProjectileSource` to **Gun**
-- Add at least **one shot type** entry
-- Assign:
-  - ShotSource transform (muzzle)
-  - projectile prefab / max distance / collision layers as needed
-  - optional muzzle prefab / impact prefab
+Select the Gun object, the main root object, where the `UXRGrabbableObject` is, and add the `UxrFirearmWeapon`. The `UxrProjectileSource` will be added automatically, as it is required.
+![](/media/docs/tutorials/weapons/creating-a-gun/pistol-firearm-component.png)
 
-### 3) Add UxrFirearmWeapon
-- Add `UxrFirearmWeapon` to **Gun**
-- Assign:
-  - RecoilAxes transform (optional but recommended)
-- Add **Triggers** entries:
-  - ProjectileShotIndex (maps to ProjectileSource shot type index)
-  - CycleType (SemiAutomatic is a good first test)
-  - MaxShotFrequency
-  - TriggerGrabbable + GrabPointIndex
-  - TriggerTransform (optional, for visuals)
-  - Recoil settings (start subtle)
-  - Shot audio + no-ammo audio + haptics (optional)
-
-> If you add multiple triggers (example: rifle + grenade launcher), your `UxrProjectileSource` should have the same number of shot types as triggers.
-
----
-
+Next, we'll set up the firearm component. Open the Trigger drop-down menu in the `UxrFirearmWeapon`, then select the + icon to add a trigger.
+![](/media/docs/tutorials/weapons/creating-a-gun/pistol-component-trigger.png)
+![](/media/docs/tutorials/weapons/creating-a-gun/pistol-trigger-component.png)
 ## Magazine Setup (Optional, but recommended)
 
 ### Create the Magazine
